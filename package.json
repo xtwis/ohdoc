@@ -27,6 +27,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "xtwis-ohdoc": "./dist/cli.mjs"
+  },
   "files": [
     "LICENSE",
     "README.md",
@@ -45,6 +48,13 @@
     "test:run": "pnpm test run",
     "test:ui": "pnpm test --ui"
   },
+  "peerDependencies": {
+    "mermaid": "^11.0.0",
+    "vitepress": "2.0.0-alpha.20",
+    "vitepress-mermaid-renderer": "^1.2.2",
+    "vitepress-sidebar": "^1.40.0",
+    "vue": "^3.5.43"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^9.1.0",
     "@commitlint/cli": "^21.2.3",
@@ -58,6 +68,10 @@
     "husky": "^9.1.7",
     "tsup": "^8.5.1",
     "typescript": "^6.0.0",
-    "vitest": "^4.1.9"
+    "vitepress": "2.0.0-alpha.20",
+    "vitepress-mermaid-renderer": "^1.2.2",
+    "vitepress-sidebar": "^1.40.0",
+    "vitest": "^4.1.9",
+    "vue": "^3.5.43"
   }
 }
