@@ -33,28 +33,55 @@ export default defineOhDocConfig({
 `
 
 /**
- * spawns vitepress and returns its exit code.
+ * cli log, colorizes title and prefixes messages.
  */
-function runVitepress(args: string[]): number {
-  const r = spawnSync("npx", ["vitepress", ...args], { stdio: "inherit" })
-  return r.status ?? 1
+function log(title: string, ...messages: string[]): void {
+  const bg = title === "error" ? "\u001B[41m" : "\u001B[46m"
+  const color = "\u001B[30m"
+  const reset = "\u001B[0m"
+  console.log(`${bg}${color} ${title} ${reset} ${messages.join("")}`)
 }
 
 /**
  * scaffolds the ohdoc workspace at root.
  */
 async function runInit(root: string): Promise<number> {
-  await mkdir(path.join(root, ".ohdoc", "theme"), { recursive: true })
+  try {
+    await mkdir(path.join(root, ".ohdoc", "theme"), { recursive: true })
+    log("success", "create .ohdoc at ", path.join(root, ".ohdoc", "theme"))
+  }
+  catch (err) {
+    log("error", "create .ohdoc failed with ", (err as Error).message)
+  }
 
   if (!existsSync(path.join(root, ".ohdoc", "config.mts"))) {
-    await writeFile(path.join(root, ".ohdoc", "config.mts"), VITEPRESS_CONFIG_CONTENT, "utf8")
+    try {
+      await writeFile(path.join(root, ".ohdoc", "config.mts"), VITEPRESS_CONFIG_CONTENT, "utf8")
+      log("success", "create config.mts at ", path.join(root, ".ohdoc", "config.mts"))
+    }
+    catch (err) {
+      log("error", "create config.mts failed with ", (err as Error).message)
+    }
   }
+
   if (!existsSync(path.join(root, ".ohdoc", "theme", "index.ts"))) {
-    await writeFile(path.join(root, ".ohdoc", "theme", "index.ts"), VITEPRESS_THEME_CONTENT, "utf8")
+    try {
+      await writeFile(path.join(root, ".ohdoc", "theme", "index.ts"), VITEPRESS_THEME_CONTENT, "utf8")
+      log("success", "create theme at ", path.join(root, ".ohdoc", "theme", "index.ts"))
+    }
+    catch (err) {
+      log("error", "create theme failed with ", (err as Error).message)
+    }
   }
 
   if (!existsSync(path.join(root, "ohdoc.config.mts"))) {
-    await writeFile(path.join(root, "ohdoc.config.mts"), OHDOC_CONFIG_CONTENT, "utf8")
+    try {
+      await writeFile(path.join(root, "ohdoc.config.mts"), OHDOC_CONFIG_CONTENT, "utf8")
+      log("success", "create ohdoc.config.mts at ", path.join(root, "ohdoc.config.mts"))
+    }
+    catch (err) {
+      log("error", "create ohdoc.config.mts failed with ", (err as Error).message)
+    }
   }
 
   const gitignorePath = path.join(root, ".gitignore")
@@ -64,10 +91,24 @@ async function runInit(root: string): Promise<number> {
     hasEntry = content.split(/\r?\n/).some(line => line.trim() === ".ohdoc/" || line.trim() === ".ohdoc")
   }
   if (!hasEntry) {
-    await appendFile(gitignorePath, "\n# OhDoc\n.ohdoc/\n", "utf8")
+    try {
+      await appendFile(gitignorePath, "\n# OhDoc\n.ohdoc/\n", "utf8")
+      log("success", "append .ohdoc/ entry to ", gitignorePath)
+    }
+    catch (err) {
+      log("error", "append .ohdoc/ entry to ", gitignorePath, " failed with ", (err as Error).message)
+    }
   }
 
   return 0
+}
+
+/**
+ * spawns vitepress and returns its exit code.
+ */
+function runVitepress(args: string[]): number {
+  const r = spawnSync("npx", ["vitepress", ...args], { stdio: "inherit" })
+  return r.status ?? 1
 }
 
 /**
@@ -97,4 +138,7 @@ async function main(): Promise<void> {
   }
 }
 
-main().catch(() => process.exit(1))
+main().catch((err) => {
+  log("error", (err as Error).message)
+  process.exit(1)
+})
