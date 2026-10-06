@@ -1,6 +1,6 @@
 {
   "name": "@xtwis/ohdoc",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "packageManager": "pnpm@11.24.0",
   "description": "Scaffold a local VitePress dev environment for your repo with one CLI.",
   "author": "Twisuki",
