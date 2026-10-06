@@ -9,7 +9,7 @@
       "@xtwis/ohdoc": ["./src/index.ts"]
     },
     "resolveJsonModule": true,
-    "types": [],
+    "types": ["node"],
     "strict": true,
     "declaration": true,
     "declarationMap": true,

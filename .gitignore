@@ -145,6 +145,3 @@ vite.config.ts.timestamp-*
 # Editor
 .claude
 .idea
-
-# whatsnext skill (cross-session dev notes)
-.whatsnext

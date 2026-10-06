@@ -28,7 +28,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "bin": {
-    "xtwis-ohdoc": "./dist/cli.mjs"
+    "ohdoc": "./dist/cli.mjs"
   },
   "files": [
     "LICENSE",
@@ -59,7 +59,7 @@
     "@antfu/eslint-config": "^9.1.0",
     "@commitlint/cli": "^21.2.3",
     "@commitlint/config-conventional": "^21.2.3",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.6.4",
     "@vitest/ui": "^4.1.9",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.21",

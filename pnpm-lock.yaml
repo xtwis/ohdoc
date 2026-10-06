@@ -22,7 +22,7 @@ importers:
         specifier: ^21.2.3
         version: 21.2.3
       '@types/node':
-        specifier: ^26.1.1
+        specifier: ^26.6.4
         version: 26.6.4
       '@vitest/ui':
         specifier: ^4.1.9

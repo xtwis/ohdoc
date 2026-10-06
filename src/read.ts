@@ -1,23 +1,27 @@
-import type { UserConfig } from "vitepress"
-import type { OhDocUserConfig } from "./types"
-import { withSidebar } from "vitepress-sidebar"
-import { OHDOC_CONFIG } from "./config"
+import { existsSync, readFileSync } from "node:fs"
+import path from "node:path"
 
-export function defineOhDocConfig(config: OhDocUserConfig): OhDocUserConfig {
-  return config
+export function existsConfig(root: string): boolean {
+  return existsSync(path.join(root, "ohdoc.config.mts"))
 }
 
-export function buildVitepressConfig(userConfig: OhDocUserConfig): UserConfig {
-  const repo = userConfig.repo ? userConfig.repo.replace(/^@/, "") : "xtwis"
-  return withSidebar({
-    ...OHDOC_CONFIG,
-    srcDir: userConfig.src ?? OHDOC_CONFIG.srcDir,
-    title: userConfig.title,
-    themeConfig: {
-      ...OHDOC_CONFIG.themeConfig,
-      socialLinks: [
-        { icon: "github", link: `https://github.com/${repo}` },
-      ],
-    },
-  } as UserConfig)
+export function existsVitepressDir(root: string): boolean {
+  return existsSync(path.join(root, ".ohdoc"))
+}
+
+export function existsVitepressConfig(root: string): boolean {
+  return existsSync(path.join(root, ".ohdoc", "config.mts"))
+}
+
+export function existsVitepressTheme(root: string): boolean {
+  return existsSync(path.join(root, ".ohdoc", "theme", "index.ts"))
+}
+
+export function gitignoreHasOhDoc(root: string): boolean {
+  const target = path.join(root, ".gitignore")
+  if (!existsSync(target)) {
+    return false
+  }
+  const content = readFileSync(target, "utf8")
+  return content.split(/\r?\n/).some(line => line.trim() === ".ohdoc/" || line.trim() === ".ohdoc")
 }
