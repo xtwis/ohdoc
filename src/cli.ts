@@ -107,7 +107,7 @@ async function runInit(root: string): Promise<number> {
  * spawns vitepress and returns its exit code.
  */
 function runVitepress(args: string[]): number {
-  const r = spawnSync("npx", ["vitepress", ...args], { stdio: "inherit" })
+  const r = spawnSync("npx", ["vitepress", ...args], { stdio: "inherit", shell: true })
   return r.status ?? 1
 }
 
