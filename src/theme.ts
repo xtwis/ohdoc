@@ -6,6 +6,8 @@ import { h, nextTick, watch } from "vue"
 
 /**
  * vitepress theme with mermaid auto renderer.
+ *
+ * @see https://x.twis.uk/en/ohdoc/reference/api.html
  */
 export const VITEPRESS_THEME = {
   extends: DefaultTheme,

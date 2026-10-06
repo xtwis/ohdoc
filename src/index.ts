@@ -4,6 +4,8 @@ import { withSidebar } from "vitepress-sidebar"
 
 /**
  * user-facing config shape for ohdoc.config.ts.
+ *
+ * @see https://x.twis.uk/en/ohdoc/guide/configuration.html
  */
 export interface OhDocUserConfig {
   src?: string
@@ -51,6 +53,8 @@ const VITEPRESS_CONFIG: Partial<UserConfig> = {
 
 /**
  * identity helper used in ohdoc.config.ts.
+ *
+ * @see https://x.twis.uk/en/ohdoc/guide/configuration.html
  */
 export function defineOhDocConfig(config: OhDocUserConfig): OhDocUserConfig {
   return config
@@ -58,6 +62,8 @@ export function defineOhDocConfig(config: OhDocUserConfig): OhDocUserConfig {
 
 /**
  * merges user config with defaults and vitepress-sidebar.
+ *
+ * @see https://x.twis.uk/en/ohdoc/reference/api.html
  */
 export function buildVitepressConfig(userConfig: OhDocUserConfig): UserConfig {
   const srcDir = userConfig.src ?? VITEPRESS_CONFIG.srcDir
