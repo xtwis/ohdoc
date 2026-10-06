@@ -8,7 +8,7 @@ import process from "node:process"
  * vitepress runtime config content.
  */
 const VITEPRESS_CONFIG_CONTENT = `import { buildVitepressConfig } from "@xtwis/ohdoc"
-import userConfig from "../ohdoc.config"
+import userConfig from "../ohdoc.config.mts"
 
 export default buildVitepressConfig(userConfig)
 `
@@ -16,9 +16,7 @@ export default buildVitepressConfig(userConfig)
 /**
  * vitepress runtime theme content.
  */
-const VITEPRESS_THEME_CONTENT = `import { VITEPRESS_THEME } from "@xtwis/ohdoc"
-
-export default VITEPRESS_THEME
+const VITEPRESS_THEME_CONTENT = `export { VITEPRESS_THEME as default } from "@xtwis/ohdoc/theme"
 `
 
 /**
@@ -47,27 +45,27 @@ function log(title: string, ...messages: string[]): void {
  */
 async function runInit(root: string): Promise<number> {
   try {
-    await mkdir(path.join(root, ".ohdoc", "theme"), { recursive: true })
-    log("success", "create .ohdoc at ", path.join(root, ".ohdoc", "theme"))
+    await mkdir(path.join(root, ".vitepress", "theme"), { recursive: true })
+    log("success", "create .vitepress at ", path.join(root, ".vitepress", "theme"))
   }
   catch (err) {
-    log("error", "create .ohdoc failed with ", (err as Error).message)
+    log("error", "create .vitepress failed with ", (err as Error).message)
   }
 
-  if (!existsSync(path.join(root, ".ohdoc", "config.mts"))) {
+  if (!existsSync(path.join(root, ".vitepress", "config.mts"))) {
     try {
-      await writeFile(path.join(root, ".ohdoc", "config.mts"), VITEPRESS_CONFIG_CONTENT, "utf8")
-      log("success", "create config.mts at ", path.join(root, ".ohdoc", "config.mts"))
+      await writeFile(path.join(root, ".vitepress", "config.mts"), VITEPRESS_CONFIG_CONTENT, "utf8")
+      log("success", "create config.mts at ", path.join(root, ".vitepress", "config.mts"))
     }
     catch (err) {
       log("error", "create config.mts failed with ", (err as Error).message)
     }
   }
 
-  if (!existsSync(path.join(root, ".ohdoc", "theme", "index.ts"))) {
+  if (!existsSync(path.join(root, ".vitepress", "theme", "index.ts"))) {
     try {
-      await writeFile(path.join(root, ".ohdoc", "theme", "index.ts"), VITEPRESS_THEME_CONTENT, "utf8")
-      log("success", "create theme at ", path.join(root, ".ohdoc", "theme", "index.ts"))
+      await writeFile(path.join(root, ".vitepress", "theme", "index.ts"), VITEPRESS_THEME_CONTENT, "utf8")
+      log("success", "create theme at ", path.join(root, ".vitepress", "theme", "index.ts"))
     }
     catch (err) {
       log("error", "create theme failed with ", (err as Error).message)
@@ -88,15 +86,15 @@ async function runInit(root: string): Promise<number> {
   let hasEntry = false
   if (existsSync(gitignorePath)) {
     const content = readFileSync(gitignorePath, "utf8")
-    hasEntry = content.split(/\r?\n/).some(line => line.trim() === ".ohdoc/" || line.trim() === ".ohdoc")
+    hasEntry = content.split(/\r?\n/).some(line => line.trim() === ".vitepress/" || line.trim() === ".vitepress")
   }
   if (!hasEntry) {
     try {
-      await appendFile(gitignorePath, "\n# OhDoc\n.ohdoc/\n", "utf8")
-      log("success", "append .ohdoc/ entry to ", gitignorePath)
+      await appendFile(gitignorePath, "\n# OhDoc Vitepress\n.vitepress/\n", "utf8")
+      log("success", "append .vitepress/ entry to ", gitignorePath)
     }
     catch (err) {
-      log("error", "append .ohdoc/ entry to ", gitignorePath, " failed with ", (err as Error).message)
+      log("error", "append .vitepress/ entry to ", gitignorePath, " failed with ", (err as Error).message)
     }
   }
 
@@ -122,13 +120,13 @@ async function main(): Promise<void> {
       code = await runInit(process.cwd())
       break
     case "dev":
-      code = runVitepress(["dev", "docs", "--config", ".ohdoc/config.mts"])
+      code = runVitepress(["dev"])
       break
     case "build":
-      code = runVitepress(["build", "docs", "--config", ".ohdoc/config.mts"])
+      code = runVitepress(["build"])
       break
     case "preview":
-      code = runVitepress(["preview", "docs", "--config", ".ohdoc/config.mts"])
+      code = runVitepress(["preview"])
       break
     default:
       code = 1
