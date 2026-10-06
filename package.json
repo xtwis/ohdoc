@@ -1,21 +1,30 @@
 {
   "name": "@xtwis/ohdoc",
-  "version": "0.1.0",
+  "version": "1.0.0-alpha.1",
   "packageManager": "pnpm@11.24.0",
-  "description": "",
+  "description": "Scaffold a local VitePress dev environment for your repo with one CLI.",
   "author": "Twisuki",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "readme": "README.md",
-  "homepage": "https://github.com/xtwis/ohdoc#readme",
+  "homepage": "https://x.twis.uk/en/ohdoc/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xtwis/ohdoc.git"
   },
   "bugs": "https://github.com/xtwis/ohdoc/issues",
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "documentation",
+    "i18n",
+    "mermaid",
+    "scaffold",
+    "sidebar",
+    "typescript",
+    "vitepress"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {

@@ -2,7 +2,7 @@
 
 # @xtwis/ohdoc
 
-VitePress workspace scaffold for your repo. One CLI, zero config.
+Scaffold a local VitePress dev environment for your repo with one CLI.
 
 [![npm version](https://img.shields.io/npm/v/@xtwis/ohdoc)](https://www.npmjs.com/package/@xtwis/ohdoc)
 [![CI](https://img.shields.io/github/actions/workflow/status/xtwis/ohdoc/ci.yml?branch=main)](https://github.com/xtwis/ohdoc/actions)
@@ -57,3 +57,7 @@ Full guides and API reference live at:
 
 - English: <https://x.twis.uk/en/ohdoc/>
 - 简体中文: <https://x.twis.uk/zh/ohdoc/>
+
+## License
+
+[MIT](./LICENSE)
