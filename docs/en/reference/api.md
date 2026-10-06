@@ -19,11 +19,7 @@ export default defineOhDocConfig({ title: "Docs" })
 
 ### `buildVitepressConfig(userConfig)`
 
-Merges the user config with `VITEPRESS_CONFIG` and `vitepress-sidebar`. Called by the auto-generated `.vitepress/config.mts`. You do not invoke this directly.
-
-### `VITEPRESS_CONFIG`
-
-Default partial VitePress config: `srcDir: "docs"`, `lastUpdated: true`, `ignoreDeadLinks: true`, bilingual locales (`en`, `zh`), and a GitHub social link.
+Merges the user config with the ohdoc defaults and `vitepress-sidebar` per-locale options. Called by the auto-generated `.vitepress/config.mts`. You do not invoke this directly.
 
 ### `OhDocUserConfig`
 

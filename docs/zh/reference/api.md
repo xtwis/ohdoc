@@ -19,11 +19,7 @@ export default defineOhDocConfig({ title: "文档" })
 
 ### `buildVitepressConfig(userConfig)`
 
-合并用户配置和 `VITEPRESS_CONFIG`，并接入 `vitepress-sidebar`。由自动生成的 `.vitepress/config.mts` 调用，请勿手动调用。
-
-### `VITEPRESS_CONFIG`
-
-默认 VitePress partial config：`srcDir: "docs"`、`lastUpdated: true`、`ignoreDeadLinks: true`、双语 locale（en/zh）、GitHub 社交链接。
+合并用户配置和 ohdoc 默认值，并接入 per-locale 的 `vitepress-sidebar` 配置。由自动生成的 `.vitepress/config.mts` 调用，请勿手动调用。
 
 ### `OhDocUserConfig`
 

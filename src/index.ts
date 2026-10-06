@@ -1,4 +1,5 @@
 import type { UserConfig } from "vitepress"
+import type { VitePressSidebarOptions } from "vitepress-sidebar/types"
 import { withSidebar } from "vitepress-sidebar"
 
 /**
@@ -11,20 +12,39 @@ export interface OhDocUserConfig {
 }
 
 /**
+ * vitepress-sidebar options for each locale.
+ */
+const VITEPRESS_SIDEBAR_CONFIG: VitePressSidebarOptions[] = [
+  {
+    documentRootPath: "docs",
+    scanStartPath: "en",
+    resolvePath: "/en/",
+    includeRootIndexFile: true,
+    includeFolderIndexFile: true,
+    sortMenusByFrontmatterOrder: true,
+    useTitleFromFrontmatter: true,
+  },
+  {
+    documentRootPath: "docs",
+    scanStartPath: "zh",
+    resolvePath: "/zh/",
+    includeRootIndexFile: true,
+    includeFolderIndexFile: true,
+    sortMenusByFrontmatterOrder: true,
+    useTitleFromFrontmatter: true,
+  },
+]
+
+/**
  * default partial vitepress user config.
  */
-export const VITEPRESS_CONFIG: Partial<UserConfig> = {
+const VITEPRESS_CONFIG: Partial<UserConfig> = {
   srcDir: "docs",
   lastUpdated: true,
   ignoreDeadLinks: true,
   locales: {
     en: { label: "English", lang: "en", dir: "en" },
     zh: { label: "简体中文", lang: "zh_CN", dir: "zh" },
-  },
-  themeConfig: {
-    socialLinks: [
-      { icon: "github", link: "https://github.com/xtwis" },
-    ],
   },
   markdown: { html: false },
 }
@@ -40,16 +60,20 @@ export function defineOhDocConfig(config: OhDocUserConfig): OhDocUserConfig {
  * merges user config with defaults and vitepress-sidebar.
  */
 export function buildVitepressConfig(userConfig: OhDocUserConfig): UserConfig {
+  const srcDir = userConfig.src ?? VITEPRESS_CONFIG.srcDir
   const repo = userConfig.repo ? userConfig.repo.replace(/^@/, "") : "xtwis"
+  const sidebar = VITEPRESS_SIDEBAR_CONFIG.map(c => ({
+    ...c,
+    documentRootPath: srcDir,
+  }))
   return withSidebar({
     ...VITEPRESS_CONFIG,
-    srcDir: userConfig.src ?? VITEPRESS_CONFIG.srcDir,
+    srcDir,
     title: userConfig.title,
     themeConfig: {
-      ...VITEPRESS_CONFIG.themeConfig,
       socialLinks: [
         { icon: "github", link: `https://github.com/${repo}` },
       ],
     },
-  } as UserConfig)
+  } as UserConfig, sidebar)
 }
