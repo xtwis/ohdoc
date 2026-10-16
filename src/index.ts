@@ -43,7 +43,6 @@ const VITEPRESS_SIDEBAR_CONFIG: VitePressSidebarOptions[] = [
 const VITEPRESS_CONFIG: Partial<UserConfig> = {
   srcDir: "docs",
   lastUpdated: true,
-  ignoreDeadLinks: true,
   locales: {
     en: { label: "English", lang: "en", dir: "en" },
     zh: { label: "简体中文", lang: "zh_CN", dir: "zh" },
