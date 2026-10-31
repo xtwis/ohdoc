@@ -55,8 +55,8 @@ pnpm ohdoc dev    # vitepress at http://localhost:5173
 
 Full guides and API reference live at:
 
-- English: <https://x.twis.uk/en/ohdoc/>
-- 简体中文: <https://x.twis.uk/zh/ohdoc/>
+- English: <https://x.twis.uk/ohdoc>
+- 简体中文: <https://x.twis.uk/zh/ohdoc>
 
 ## License
 

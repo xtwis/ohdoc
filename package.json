@@ -1,6 +1,6 @@
 {
   "name": "@xtwis/ohdoc",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "packageManager": "pnpm@11.24.0",
   "description": "Scaffold a local VitePress dev environment for your repo with one CLI.",
   "author": "Twisuki",
@@ -9,7 +9,7 @@
     "access": "public"
   },
   "readme": "README.md",
-  "homepage": "https://x.twis.uk/en/ohdoc/",
+  "homepage": "https://x.twis.uk/ohdoc",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xtwis/ohdoc.git"
